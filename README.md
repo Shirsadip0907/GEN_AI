@@ -1,110 +1,144 @@
+# NexusForge Framework README
 
-🤖 NexusForge: Advanced AI Development Framework
-Overview
-NexusForge is a Streamlit application that simulates a complete software development team using AI agents. Each agent specializes in a different role of the software development lifecycle, allowing you to rapidly prototype and develop software projects with minimal human intervention.
+## Overview
 
-Features
-Complete Development Lifecycle: Takes projects from initial requirements through design, development, testing, and review phases
-Specialized AI Agents: Utilizes AI agents for different roles including Project Lead, Business Analyst, Designer, Developer, and Tester
-Interactive Interface: Streamlit-based UI that allows for real-time interaction and feedback at each development phase
-Artifact Management: Automatically generates and manages development artifacts throughout the project lifecycle
-Chat Interface: Direct communication with the Project Lead agent for questions and guidance
-Installation
-Prerequisites
-Python 3.8 or higher
-pip package manager
-Setup
-Clone the repository:
+NexusForge is a sophisticated AI development framework designed to streamline the software development lifecycle using multi-agent orchestration and Retrieval-Augmented Generation (RAG). It leverages specialized agents, contextual retrieval, and advanced LLM capabilities to enhance productivity, consistency, and collaboration across all phases of project development.
 
-git clone https://github.com/yourusername/ai-virtual-development-pod.git
-cd ai-virtual-development-pod
-Create a virtual environment (optional but recommended):
+---
 
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-Install the required dependencies:
+## Features
 
-pip install -r requirements.txt
-Create a .env file in the project root with your API keys:
+### Core Architecture
+1. **Multi-Agent Orchestration Layer**  
+   NexusForge employs the CrewAI framework to coordinate specialized agents:
+   - **Project Lead Agent**: Oversees workflow and decision-making.
+   - **Business Analyst Agent**: Converts business requirements into actionable user stories.
+   - **Designer Agent**: Creates architectural plans, UI/UX designs, and system documentation.
+   - **Developer Agent**: Implements code based on design specifications.
+   - **Tester Agent**: Designs test plans, executes tests, and ensures quality assurance.
 
-GEMINI_API_KEY=your_gemini_api_key
-Usage
-Start the application:
+2. **Retrieval-Augmented Generation (RAG)**  
+   RAG enhances agent capabilities by retrieving relevant context for tasks:
+   - Document ingestion with PDF parsing and text chunking.
+   - Semantic search using vector databases for artifact retrieval.
+   - Augmented generation with context-enriched prompts.
 
-streamlit run app.py
-The application will open in your default web browser at http://localhost:8501
+---
 
-Navigate through the different tabs and phases of development:
+### Technical Highlights
+- **Frontend**: Built with Streamlit for an intuitive user interface.
+- **Backend**:
+  - Python-based core logic.
+  - CrewAI for agent orchestration.
+  - LangChain for LLM integration.
+  - LiteLLM for model abstraction.
+- **AI/LLM**:
+  - Powered by Gemini 1.5 Flash for contextual generation.
+  - ChatLiteLLM wrapper for seamless communication.
+- **Data Management**:
+  - Custom DatabaseManager for artifact storage and retrieval.
+  - Vector database indexing for semantic search.
 
-Project Management: Guide the project through each development phase
-Artifacts: View and download generated project artifacts
-Chat: Communicate directly with the Project Lead agent
-Development Workflow
-Initialization Phase:
+---
 
-Enter project name, description, and business requirements
-The Project Lead agent will generate an initial project outline
-Requirements Analysis Phase:
+## Workflow Breakdown
 
-The Business Analyst agent generates user stories based on the project outline
-Provide feedback to refine the user stories as needed
-Design Phase:
+### Document Ingestion
+1. Upload PDF requirements or enter text directly.  
+2. Documents are parsed, chunked, and embedded into the vector database.  
+3. Metadata extraction enhances searchability.
 
-The Designer agent creates a comprehensive design document
-Review and provide feedback to refine the design
-Development Phase:
+### Phase-Specific RAG Processing
+1. **Requirements Phase**:  
+   Business Analyst retrieves project initialization documents and generates user stories.  
+2. **Design Phase**:  
+   Designer retrieves user stories and generates architectural plans and system designs.  
+3. **Development Phase**:  
+   Developer retrieves design documents to generate implementation code.  
+4. **Testing Phase**:  
+   Tester retrieves user stories, design documents, and implementation artifacts to create test plans.
 
-The Developer agent generates code implementation based on design and requirements
-Review and provide feedback to improve the code
-Testing Phase:
+### Knowledge Refinement
+- Progressive artifact refinement cycles incorporate user feedback.  
+- Cross-phase knowledge transfer ensures consistency across requirements, design, implementation, and testing.
 
-The Tester agent creates a test plan and executes tests against the implementation
-Review test results and address any issues
-Review Phase:
+---
 
-The Project Lead agent provides a comprehensive project review
-Start a new project or continue refining the current one
-Project Structure
-virtual_dev_pod/
-├── .env                  # Environment variables
-├── app.py                # Streamlit application
-├── agents/               # Agent definitions
-│   ├── __init__.py
-│   ├── project_lead.py
-│   ├── business_analyst.py
-│   ├── designer.py
-│   ├── developer.py
-│   └── tester.py
-├── templates/            # Artifact templates
-│   ├── user_story.md
-│   ├── design_doc.md
-│   ├── code_template.py
-│   └── test_case.md
-├── database/             # ChromaDB setup
-│   └── db_manager.py
-└── utils/                # Utility functions
-    └── helpers.py
-Customization
-Adding New Agents
-To add a new specialized agent:
+## Installation
 
-Create a new file in the agents/ directory
-Define the agent class with appropriate methods
-Update the imports and agent initialization in app.py
-Modifying the Workflow
-You can customize the development workflow by:
+### Prerequisites
+- Python >= 3.8
+- Pip package manager
+- Streamlit installed (`pip install streamlit`)
+- LangChain library (`pip install langchain`)
+- PyPDF2 library (`pip install pypdf2`)
+- Vector database (e.g., Pinecone or Weaviate)
 
-Adding or removing phases in the sidebar selection
-Modifying the tasks given to agents
-Creating new artifact types
-Troubleshooting
-API Key Issues: Ensure your API keys are correctly set in the .env file
-Memory Errors: If you encounter memory issues with large projects, try reducing the model's temperature or tokens
-Missing Task Import: If you encounter a "Task not defined" error, ensure you've imported Task from the crewai package
-License
-MIT License
+### Steps
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-repo/nexusforge.git
+   cd nexusforge
+   ```
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Run the application:
+   ```bash
+   streamlit run app.py
+   ```
 
-Acknowledgments
-Built with Streamlit
-AI agents powered by CrewAI
-Language models provided by Google's Gemini API
+---
+
+## Usage
+
+### Uploading Documents
+1. Navigate to the "Document Upload" section in the UI.  
+2. Upload PDF files or enter text directly into the input field.
+
+### Managing Agents
+1. Select the agent role (e.g., Business Analyst, Designer).  
+2. Provide task-specific inputs (e.g., requirements or user stories).  
+
+### Generating Artifacts
+1. Agents will retrieve relevant context from the vector database.  
+2. Generated artifacts are displayed in structured formats (e.g., JSON, diagrams).
+
+---
+
+## Advanced Features
+
+### Context-Aware Chat System
+- Project Manager queries trigger retrieval of relevant artifacts.
+- Project Lead agent provides accurate responses using retrieved context.
+
+### Progressive Knowledge Refinement
+- User feedback enhances artifact quality over multiple refinement cycles.
+
+### Cross-Phase Knowledge Transfer
+- Ensures consistency across all phases of development by tracing requirements through design, implementation, and testing.
+
+---
+
+## Challenges Addressed
+
+1. **Context Window Limitations**: Intelligent chunking prioritizes relevant content for large projects.
+2. **Knowledge Consistency**: Centralized artifact storage ensures agents work with consistent information.
+3. **Retrieval Relevance**: Metadata enrichment optimizes semantic search accuracy.
+4. **User Experience Transparency**: Clear UI displays which documents influence current generation.
+
+---
+
+## Contributing
+
+We welcome contributions to NexusForge! To contribute:
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-name`).
+3. Commit your changes (`git commit -m "Add feature"`).
+4. Push to your branch (`git push origin feature-name`).
+5. Open a pull request describing your changes.
+
+
+
+Happy coding! 🚀
